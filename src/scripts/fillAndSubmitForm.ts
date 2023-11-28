@@ -4,6 +4,7 @@ import puppeteer from 'puppeteer'
 export default async function fillAndSubmitForm() {
 
   try {
+    // 1. Open browser and url
     const url = 'https://bukabantuan.bukalapak.com/form/175'
 
     const browser = await puppeteer.launch({ headless: false }) 
@@ -11,6 +12,7 @@ export default async function fillAndSubmitForm() {
 
     await page.goto(url)
 
+    // 2. enter random text into input fields
     const inputFields = await page.$$('.bl-text-field__input')
 
     for (let i = 0; i < inputFields.length; i++) {
@@ -24,17 +26,17 @@ export default async function fillAndSubmitForm() {
       }
     }
 
+    // 3. enter text in body field
     await page.type(
       '#body',
       'body body body body body bodybody body body body body body body body body body body body body body bodybody'
     )
 
-    const radioButtonSelector = 'input[type="radio"]' // Replace with the actual class of your radio button
+    // 4. select the radio button
+    const radioButtonSelector = 'input[type="radio"]' 
 
-    // Wait for the radio button to be present in the DOM
     await page.waitForSelector(radioButtonSelector)
 
-    // Set the value of the radio button using page.evaluate
     await page.evaluate(radioButtonSelector => {
       // eslint-disable-next-line no-undef
       const radioButton = document.querySelector(radioButtonSelector)
@@ -46,8 +48,11 @@ export default async function fillAndSubmitForm() {
       radioButton?.dispatchEvent(event)
     }, radioButtonSelector)
 
-    const fileInputId1 = 'link_barang_banyak' // Replace with the actual id of your file input
-    const filePath = path.resolve(__dirname, 'test.jpeg') // Replace 'your_file.txt' with the actual file name
+
+    // 6. upload file for first upload input
+
+    const fileInputId1 = 'link_barang_banyak' 
+    const filePath = path.resolve(__dirname, 'test.jpeg') 
 
     await page.waitForSelector(`#${fileInputId1}`)
 
@@ -68,12 +73,12 @@ export default async function fillAndSubmitForm() {
     }, fileInputId1, filePath)
 
 
+    // 7. upload file for first upload input
 
-    const fileInputId2 = 'surat_kepemilikan_merek' // Replace with the actual id of your file input
+    const fileInputId2 = 'surat_kepemilikan_merek' 
 
     await page.waitForSelector(`#${fileInputId1}`)
 
-    // Upload the file using the file input id
     await page.evaluate((fileInputId, filePath) => {
       // eslint-disable-next-line no-undef
       const fileInput = document.getElementById(fileInputId)
@@ -89,22 +94,24 @@ export default async function fillAndSubmitForm() {
       fileInput?.dispatchEvent(event)
     }, fileInputId2, filePath)
 
-    const checkboxSelector = 'input[type="checkbox"]' // Replace with the actual class of your checkbox
 
-    // Wait for the checkbox to be present in the DOM
+    // 8. select checkbox
+
+    const checkboxSelector = 'input[type="checkbox"]' 
+
     await page.waitForSelector(checkboxSelector)
 
-    // Set the value of the checkbox using page.evaluate
     await page.evaluate(checkboxSelector => {
       // eslint-disable-next-line no-undef
       const checkbox = document.querySelector(checkboxSelector)
       //@ts-ignore
       checkbox.checked = true
 
-      // Trigger the 'change' event
       const event = new Event('change', { bubbles: true })
       checkbox?.dispatchEvent(event)
     }, checkboxSelector)
+
+    // 9. click on submit
 
     await page.click('.bl-button')
 
