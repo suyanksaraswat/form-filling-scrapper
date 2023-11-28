@@ -1,7 +1,7 @@
 {
-  "name": "node-express-typescript-starter",
+  "name": "form-filling-scrapper",
   "version": "0.1.0",
-  "description": "A starter Node.js API server using Express, with Docker, Jest, and ESLint. All in Typescript",
+  "description": "A Node.js API server using Express, with Docker, Jest, and ESLint. All in Typescript. This app will help to automate and form filling and submission.",
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",

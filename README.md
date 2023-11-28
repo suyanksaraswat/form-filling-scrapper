@@ -1,18 +1,19 @@
-[![Build - Tests](https://github.com/elgharabawy/node-express-typescript-starter/actions/workflows/build-test.yml/badge.svg)](https://github.com/elgharabawy/node-express-typescript-starter/actions/workflows/build-test.yml)
-# node-express-typescript-starter
-This is a starter Node.js API server project built on Express. It has Docker support as well as Jest, ESLint, and a local development server. Everything is in Typescript.
+# Form filling scrapper
+This is a web scrapper built on Node.js API server project. It has Docker support as well as Jest, ESLint, and a local development server. Everything is in Typescript.
 
-This was initially built for a Google Cloud Run project, but it could be used anywhere. 
+This repo contains an API which trigger an url - 'https://bukabantuan.bukalapak.com/form/175', Then fill the input with some random data and submit the form. It validate if the form is success by waiting for next/ success screen to show up.
+
 ## Prerequisite
-- Node 16
+- Node
+
 ## Nice to have
 - [NVM](https://github.com/nvm-sh/nvm)
 - [VS Code](https://code.visualstudio.com/)
-- [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
 ## Getting started
 - Clone the repository
 ```
-git clone --depth=1 https://github.com/elgharabawy/node-express-typescript-starter.git <project_name>
+git clone https://github.com/suyanksaraswat/form-filling-scrapper
 ```
 - Install dependencies
 ```
@@ -26,8 +27,7 @@ npm run dev
 - Using postman, curl, or your browser
 ```
 GET http://localhost:8080
-GET http://localhost:8080/articles
-GET http://localhost:8080/articles/test
+GET http://localhost:8080/api/scrap
 ```
 - To use ESLint
 ```
@@ -49,7 +49,7 @@ Morgan is used as an http logger middleware for Express and the logs are routed 
 All of these logs are written to console during development. Feel free to add production-specific loggers as and when needed.
 ## Project structure
 ```
-node-express-typescript-starter
+form-filling-scrapper
 ├─ .editorconfig
 ├─ .eslintrc.json
 ├─ .github
@@ -71,7 +71,7 @@ node-express-typescript-starter
 │  │  ├─ http-exception.ts
 │  │  └─ logger.ts
 │  ├─ controllers
-│  │  └─ articles.controller.ts
+│  │  └─ scrap.controller.ts
 │  ├─ index.ts
 │  ├─ middleware
 │  │  ├─ error.middleware.ts
@@ -79,21 +79,14 @@ node-express-typescript-starter
 │  │  ├─ index.ts
 │  │  └─ not-found.middleware.ts
 │  ├─ routers
-│  │  └─ articles.router.ts
+│  │  └─ scrap.router.ts
 │  └─ services
-│     └─ articles.service.ts
+│     └─ scrap.service.ts
 ├─ tests
-│  └─ articles.test.ts
 ├─ tsconfig.json
 └─ types
-   ├─ articles.d.ts
-   └─ service-response.d.ts
 
 ```
 ## General notes
-- This is meant to be a starter project. Feel free to remove the articles routes and add your own resources
+- This is meant to be a basic scrap project. Feel free to renhance this code.
 - ESLint is run as part of the build command 
-- This project could be deployed to Google Cloud using [gcloud CLI](https://cloud.google.com/sdk/docs/install) without any modifications
-```
-gcloud run deploy
-```
